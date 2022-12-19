@@ -1,52 +1,77 @@
-public class Main extends Triangulo {
+import java.util.InputMismatchException;
+
+public class Main {
 
 	private Triangulo triangulo;
 	private String tipoLados;
 	private String tipoAngulos;
-
+	
+	public Main(Triangulo triangulo, String tipoLados, String tipoAngulos) {
+		this.triangulo = triangulo;
+		this.tipoLados = tipoLados;
+		this.tipoAngulos = tipoAngulos;
+	}
 	/**
 	 * 
 	 * @param triangulo
 	 */
-	public String CalcularTipo(Triangulo triangulo) {
+	public void CalcularTipo() {
 		// TODO - implement Main.CalcularTipo
-
-		if(Triangulo.getX() == Triangulo.getY() == Triangulo.getZ()){
+		if((triangulo.getX() == triangulo.getY()) && (triangulo.getY() == triangulo.getZ())){
 			setTipoLado("EQUILATERO");  
-		}else if(Triangulo.getX() == Triangulo.getY() != Triangulo.getZ() || Triangulo.getY() == Triangulo.getZ() !=Triangulo.getX(|| Triangulo.getX() == Triangulo.getZ() != Triangulo.getY()){
+		}else if((triangulo.getX() == triangulo.getY() && triangulo.getY() != triangulo.getZ()) || (triangulo.getY() == triangulo.getZ() && triangulo.getZ() != triangulo.getX())|| (triangulo.getX() == triangulo.getZ() && triangulo.getZ() != triangulo.getY())){
 			setTipoLado("ISÓSCELES");
-		}else if(Triangulo.getX() != Triangulo.getY() != Triangulo.getZ()){
+		}else if(triangulo.getX() != triangulo.getY() && triangulo.getY() != triangulo.getZ()){
 			setTipoLado("ESCALENO");
 		}
 
-
-
-		throw new UnsupportedOperationException();
 	}
 
-	public String CalcularTipoAngulo(Triangulo triangulo){
-		if(Triangulo.getA() == "90" || Triangulo.getB() == "90" || Triangulo.getC()== "90"){
+	public void CalcularTipoAngulo(){
+		if(triangulo.getA() == 90 || triangulo.getB() == 90 || triangulo.getC()== 90){
 			setTipoAngulo("RECTÁNGULO");  
-		}else if(Triangulo.getA() < "90" && Triangulo.getB() < "90" && Triangulo.getC() < "90" ){
+		}else if(triangulo.getA() < 90 && triangulo.getB() < 90 && triangulo.getC() < 90 ){
 			setTipoAngulo("ACUTÁNGULO");
-		}else if(Triangulo.getA() > "90" || Triangulo.getB() > "90" || Triangulo.getC() > "90"){
+		}else if(triangulo.getA() > 90 || triangulo.getB() > 90 || triangulo.getC() > 90){
 			setTipoAngulo("OBTUSÁNGULO");
 		}
 
+
 	}
 
-	public String CompararTipos(String tipoLados, String tipoAngulos){
-		if(tipoLados == "EQUILATERO"){
+	public String CompararTipos(){
+		String tipo = "";
+		if(tipoLados == "EQUILATERO") {
 			if(tipoAngulos == "ACUTÁNGULO"){
-				println("El triangulo es EQUILATERO y ACUTÁNGULO");
+				tipo = "El triangulo es EQUILATERO y ACUTÁNGULO";
 			}
 			else{
-				println("El triángulo no puede ser EQUILATERO y ACUTÁNGULO");
+				throw new InputMismatchException("El triángulo no puede ser EQUILATERO y ACUTÁNGULO");
 			}
 		}
-		if(tipoLados == "ISOSCELES"{
-			
-		})
+		else if(tipoLados == "ISOSCELES") {
+			if(tipoAngulos == "ACUTÁNGULO"){
+				tipo = "El triangulo es ISOSCELES y ACUTÁNGULO";
+			}
+			if(tipoAngulos == "RECTANGULO"){
+				tipo = "El triangulo es ISOSCELES y RECTANGULO";
+			}
+			if(tipoAngulos == "OBTUSÁNGULO"){
+				tipo = "El triangulo es ISOSCELES y OBTUSÁNGULO";
+			}
+		}
+		else if(tipoLados == "ESCALENO") {
+			if(tipoAngulos == "ACUTÁNGULO"){
+				tipo = "El triangulo es ESCALENO y ACUTÁNGULO";
+			}
+			if(tipoAngulos == "RECTANGULO"){
+				tipo = "El triangulo es ESCALENO y RECTANGULO";
+			}
+			if(tipoAngulos == "OBTUSÁNGULO"){
+				tipo = "El triangulo es ESCALENO y OBTUSÁNGULO";
+			}
+		}
+		return tipo;
 		
 	}
 
@@ -63,7 +88,7 @@ public class Main extends Triangulo {
 	}
 
 	public String getTipo() {
-		return this.tipo;
+		return this.tipoLados;
 	}
 
 	/**
